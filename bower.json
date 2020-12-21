@@ -1,0 +1,26 @@
+{
+  "name": "uistats-typescript",
+  "version": "0.0.1",
+  "homepage": "https://github.com/IkarosKappler/uistats-typescript",
+  "authors": [
+    "Ikaros Kappler <info@int2byte.de>"
+  ],
+  "description": "A tiny ui component to display app stats.",
+  "main": "dist/uistats.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "ui",
+    "stats"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

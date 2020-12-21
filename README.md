@@ -1,0 +1,50 @@
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
+UIStats (TypeScript and Javascript)
+===================================
+
+This is a tiny UI module for displaying simple stats data.
+[ikaroskappler/uistats-typescript](https://github.com/IkarosKappler/uistats-typescript)
+
+![Screenshot ](screenshot.png "Screenshot")
+
+[Interactive demo in a polygon App](https://www.int2byte.de/public/plotboilerplate/demos/27-polygon-intersection-greinerhormann/)
+
+## Install
+```bash
+$ npm install uistats-typescript
+```
+
+Browserify
+```js
+var UIStats = require('uistats-typescript');
+```
+
+Browser
+```html
+<script src="path/to/UIStats.min.js"></script>
+```
+
+## Use
+```typescript
+...
+const myStats = {
+  area : 0.0,
+  status : 'Loading ...',
+  hasErrors : false,
+  touchCount : 1
+};
+
+var uiStats = new UIStats( myStats );
+myStats = uiStats.proxy;
+uiStats.add( 'area' ).precision( 3 ).suffix(' spx');
+uiStats.add( 'status' );
+uiStats.add( 'hasErrors' );
+uiStats.add( 'touchCount' );
+
+// ... do your stuff ...
+
+// When the stats members update, the change will immediately become
+// visible in the UI component
+myStats.area = calculateArea(...);
+```
+
