@@ -5,6 +5,9 @@ UIStats (TypeScript and Javascript)
 This is a tiny UI module for displaying simple stats data.
 [ikaroskappler/uistats-typescript](https://github.com/IkarosKappler/uistats-typescript)
 
+The whole production library is only 3.4kB.
+
+
 ![Screenshot ](screenshot.png "Screenshot")
 
 [Interactive demo in a polygon App](https://www.int2byte.de/public/plotboilerplate/demos/27-polygon-intersection-greinerhormann/)
