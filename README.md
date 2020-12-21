@@ -48,3 +48,8 @@ uiStats.add( 'touchCount' );
 myStats.area = calculateArea(...);
 ```
 
+## Compatibility
+Note that the library uses [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+which is [not supported by IE](https://caniuse.com/?search=Proxy).
+
+Consider using a [polyfill](https://github.com/GoogleChrome/proxy-polyfill) in the case you need IE support.
