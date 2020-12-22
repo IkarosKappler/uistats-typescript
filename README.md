@@ -25,7 +25,7 @@ var UIStats = require('uistats-typescript');
 
 Browser
 ```html
-<script src="path/to/UIStats.min.js"></script>
+<script src="dist/uistats.min.js"></script>
 ```
 
 ## Use
