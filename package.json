@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/IkarosKappler/uistats-typescript",
   "devDependencies": {
-    "catw": "^1.0.1",
     "reify": "^0.20.12",
     "rollup": "^2.35.1",
     "rollup-plugin-buble": "^0.19.8",
