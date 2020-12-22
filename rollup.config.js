@@ -3,7 +3,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import buble    from 'rollup-plugin-buble';
 import { terser } from "rollup-plugin-terser";
 import { version, author, license, description, name } from './package.json';
-import fs from 'fs';
 
 const moduleName = 'uistats';
 
@@ -19,35 +18,40 @@ const banner = `\
 `;
 
 module.exports = [{
-  input: 'src/index.js',
-  output: {
-    file: `dist/${moduleName}.js`,
-    name: moduleName,
-    sourcemap: true,
-    format: 'umd',
-    banner
-  },
-  plugins: [
-    resolve(),  // so Rollup can find external libs
-    commonjs(), // so Rollup can convert commonJS to an ES module
-    buble()
-  ]
-}, {
-  input: `src/index.js`,
-  output: {
-    file: `dist/${moduleName}.min.js`,
-    name: moduleName,
-    sourcemap: true,
-    format: 'umd',
-    banner
-  },
-  plugins: [
-    buble(),
-    terser({
-      sourcemap: true,
-      output: {
-        comments: 'some'
-      }
-    })
-  ]
-}];
+    input: 'src/js/entry.js',
+    output: {
+	file: `dist/${moduleName}.js`,
+	name: moduleName,
+	sourcemap: true,
+	format: 'umd',
+	banner
+    },
+    plugins: [
+	resolve(),  // so Rollup can find external libs
+	commonjs(), // so Rollup can convert commonJS to an ES module
+	buble()
+    ]
+}
+    // Webpack bundles the library with a 11% smaller file
+    // Sorry rollup.
+/* 		  
+  , {
+    input: `src/js/entry.js`,
+    output: {
+	file: `dist/${moduleName}.min.js`,
+	name: moduleName,
+	sourcemap: true,
+	format: 'umd'
+    },
+    plugins: [
+	buble(),
+	commonjs(),
+	terser({
+	    // sourcemap: true,
+	    output: {
+		comments: 'some'
+	    }
+	})
+    ]
+} */
+];

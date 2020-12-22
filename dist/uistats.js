@@ -10,7 +10,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global.uistats = factory());
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.uistats = factory());
 }(this, (function () { 'use strict';
 
 	function unwrapExports (x) {
@@ -215,19 +215,16 @@
 
 	unwrapExports(UIStats_1);
 
-	var js = createCommonjsModule(function (module, exports) {
-	/**
-	 * @date 2020-12-21
-	 */
-	Object.defineProperty(exports, "__esModule", { value: true });
+	/* Imports and exports for webpack */
 
-	exports.default = UIStats_1.default;
+	// Expose the component to the global scope
+	globalThis.UIStats = UIStats_1.default;
 
-	});
+	var entry = {
 
-	var index = unwrapExports(js);
+	};
 
-	return index;
+	return entry;
 
 })));
 //# sourceMappingURL=uistats.js.map
