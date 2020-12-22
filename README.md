@@ -1,9 +1,10 @@
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 UIStats (TypeScript and Javascript)
+
+[ikaroskappler/uistats-typescript](https://github.com/IkarosKappler/uistats-typescript)
 ===================================
 
 This is a tiny UI module for displaying simple stats data.
-[ikaroskappler/uistats-typescript](https://github.com/IkarosKappler/uistats-typescript)
 
 The whole production library is only 3.4kB.
 
