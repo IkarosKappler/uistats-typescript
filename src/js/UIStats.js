@@ -1,20 +1,32 @@
 "use strict";
 /**
+ * This is a tiny UI module for displaying simple stats data.
+ *
  * Not working with IEx. Use a 'Proxy' polyfill maybe?
  *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
- * @date 2020-12-20
+ *
+ * @author Ikaros Kappler
+ * @date   2020-12-20
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 ;
+/**
+ * The default `Evaluator` function: identity (display values raw as they are).
+ */
 var FN_IDENTITY = function (value) { return value; };
+/**
+ * The main class.
+ *
+ * Once instantiated it will append a new HTMLDivElement node to the DOM.
+ */
 var UIStats = /** @class */ (function () {
     // @name LiveStats
     // @constructor
     // @param {object} observee
     // @param {Object} keyToObserve (string->Object with props)
     function UIStats(observee) {
-        // @member {object}
+        // @member {object} Keeps the props for currently observed keys.
         this.keyProps = {};
         // @member {object}
         this.keyProps = {};
@@ -28,9 +40,9 @@ var UIStats = /** @class */ (function () {
         this.toggled = false;
         // Add header node
         this.header = document.createElement('div');
-        this.header.addEventListener('click', function () { _self.toggleVisibility(); });
+        this.header.addEventListener('click', function () { _self.__toggleVisibility(); });
         this.root.appendChild(this.header);
-        this._applyBaseLayout();
+        this.__applyBaseLayout();
         var proxyHandler = {
             // get: function(target, prop, receiver) {
             //    if( prop === 'message' )
@@ -40,7 +52,7 @@ var UIStats = /** @class */ (function () {
                 var kProps = _self.keyProps[propName];
                 if (typeof kProps !== "undefined") {
                     var refinedValue = kProps.childElem.evaluateFn(value);
-                    _self._applyKeyValue(propName, kProps, refinedValue);
+                    _self.__applyKeyValue(propName, kProps, refinedValue);
                 }
                 return true; // Indicates change was successful
             }
@@ -49,7 +61,7 @@ var UIStats = /** @class */ (function () {
     }
     ;
     // @private
-    UIStats.prototype._applyKeyValue = function (keyName, kProps, value) {
+    UIStats.prototype.__applyKeyValue = function (keyName, kProps, value) {
         var node = document.getElementById(kProps.id);
         node.innerHTML = value;
         node.setAttribute('title', value);
@@ -57,7 +69,7 @@ var UIStats = /** @class */ (function () {
     ;
     // @param {string} keyName
     // @param {LiveStatsElem} newElem
-    UIStats.prototype._upateChildElem = function (keyName, newElem) {
+    UIStats.prototype.__updateChildElem = function (keyName, newElem) {
         var kProps = this.keyProps[keyName];
         if (typeof kProps !== "undefined") {
             kProps.childElem = newElem;
@@ -76,27 +88,29 @@ var UIStats = /** @class */ (function () {
         node.style.display = 'flex';
         label.style.width = '50%';
         label.style.color = '#0070ff';
-        this._applyTextLayout(label);
+        this.__applyTextLayout(label);
         label.innerHTML = keyName;
         label.setAttribute('title', keyName);
         content.style.width = '50%';
         content.style.color = '#cccecb';
         content.setAttribute('id', id);
-        this._applyTextLayout(content);
+        this.__applyTextLayout(content);
         node.appendChild(label);
         node.appendChild(content);
         this.root.appendChild(node);
-        // Gives the user the opportunity to tweak the output
+        // Gives the user the opportunity to tweak the output.
+        // Identity function is the default behavior.
         var childElem = new UIStats.UIStatsChild(this, keyName, FN_IDENTITY);
-        // this.keyProps[keyName] = Object.assign( { id : id, childElem : childElem }, keyProps );
         this.keyProps[keyName] = { id: id, childElem: childElem };
         this.keyCount++;
         // Initially display the current value
-        this._applyKeyValue(keyName, this.keyProps[keyName], this.observee[keyName]);
+        this.__applyKeyValue(keyName, this.keyProps[keyName], this.observee[keyName]);
         return childElem;
     };
     ;
-    UIStats.prototype.toggleVisibility = function () {
+    // Toggles the main component on/off.
+    // @private
+    UIStats.prototype.__toggleVisibility = function () {
         this.toggled = !this.toggled;
         if (this.toggled) {
             this.root.style.left = '-200px';
@@ -110,7 +124,7 @@ var UIStats = /** @class */ (function () {
     ;
     // Avoid text from overflowing or breaking the bounds.
     // @private
-    UIStats.prototype._applyTextLayout = function (textNode) {
+    UIStats.prototype.__applyTextLayout = function (textNode) {
         textNode.style.paddingLeft = '3px';
         textNode.style.overflow = 'hidden';
         textNode.style.whiteSpace = 'nowrap';
@@ -118,7 +132,7 @@ var UIStats = /** @class */ (function () {
     };
     ;
     // @private
-    UIStats.prototype._applyBaseLayout = function () {
+    UIStats.prototype.__applyBaseLayout = function () {
         this.root.style.position = 'absolute';
         this.root.style.left = '0';
         this.root.style.top = '0';
@@ -147,34 +161,34 @@ var UIStats = /** @class */ (function () {
     // @param {string} keyName
     // @param {function} evaluateFn - A function with one param: value => newValue
     UIStats.UIStatsChild = /** @class */ (function () {
+        // Creates a new child.
         function class_1(uiStats, keyName, evaluateFn) {
             this.precision = function (precision) {
                 var _self = this;
-                return this._installAsNewParent(function (value) {
+                return this.__installAsNewParent(function (value) {
                     return Number(_self.evaluateFn(value)).toFixed(precision);
                 });
             };
             this.suffix = function (suffixText) {
                 var _self = this;
-                return this._installAsNewParent(function (value) {
+                return this.__installAsNewParent(function (value) {
                     return [_self.evaluateFn(value), suffixText].join('');
                 });
             };
             this.prefix = function (prefixText) {
                 var _self = this;
-                return this._installAsNewParent(function (value) {
+                return this.__installAsNewParent(function (value) {
                     return [prefixText, _self.evaluateFn(value)].join('');
                 });
             };
             this.uiStats = uiStats;
             this.keyName = keyName;
-            // Identity function is the default behavior
             this.evaluateFn = evaluateFn;
         }
         ;
-        class_1.prototype._installAsNewParent = function (evaluateFn) {
+        class_1.prototype.__installAsNewParent = function (evaluateFn) {
             var newChildElem = new UIStats.UIStatsChild(this.uiStats, this.keyName, evaluateFn);
-            this.uiStats._upateChildElem(this.keyName, newChildElem);
+            this.uiStats.__updateChildElem(this.keyName, newChildElem);
             return newChildElem;
         };
         ;
