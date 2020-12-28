@@ -1,5 +1,5 @@
 /**
- * uistats-typescript v0.0.1
+ * uistats-typescript v0.0.2
  * A tiny ui component to display app stats.
  *
  * @author Ikaros Kappler <info@int2byte.de>
@@ -66,11 +66,16 @@
 	        this.root.appendChild(this.header);
 	        this.__applyBaseLayout();
 	        var proxyHandler = {
-	            // get: function(target, prop, receiver) {
-	            //    if( prop === 'message' )
-	            //       return ...;
-	            // }, 
+	            get: function (target, prop, receiver) {
+	                // if( prop === 'message' )
+	                //   ...;
+	                // console.log('get', prop, target, receiver );
+	                return target[prop]; // _self.observee[prop];
+	            },
 	            set: function (obj, propName, value) {
+	                // Apply the setter itself
+	                _self.observee[propName] = value;
+	                // Check further handling
 	                var kProps = _self.keyProps[propName];
 	                if (typeof kProps !== "undefined") {
 	                    var refinedValue = kProps.childElem.evaluateFn(value);
@@ -105,6 +110,8 @@
 	        var label = document.createElement('div');
 	        var content = document.createElement('div');
 	        node.style.display = 'flex';
+	        node.style.borderBottom = '1px solid #2c2c2c';
+	        node.style.borderLeft = '3px solid #806787';
 	        label.style.width = '50%';
 	        label.style.color = '#0070ff';
 	        this.__applyTextLayout(label);
