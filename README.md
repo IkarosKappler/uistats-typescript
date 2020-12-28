@@ -6,7 +6,7 @@ UIStats (TypeScript and Javascript)
 
 This is a tiny UI module for displaying simple stats data.
 
-The whole production library is only 3.4kB.
+The whole production library is only 3.6kB.
 
 
 ![Screenshot ](screenshot.png "Screenshot")
