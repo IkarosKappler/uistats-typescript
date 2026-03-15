@@ -4,14 +4,24 @@
   "description": "A tiny ui component to display app stats.",
   "main": "dist/uistats.js",
   "scripts": {
-    "rollup": "rollup --config rollup.config.js",
-    "build": "npm run compile-typescript && npm run rollup && npm run webpack",
-    "build-dev": "npm run compile-typescript && npm run rollup",
-    "compile-typescript": "tsc",
-    "test": "",
-    "watch": "rollup -cw",
-    "start": "npm run watch & serve",
-    "webpack": "npx webpack --mode production --config ./webpack5-config.js"
+    "build": "npm run compile && npm run webpack && npm run copy-src-to-dist",
+    "build-dev": "npm run compile && npm run webpack && npm run copy-src-to-dist-dev",
+    "compile": "npm run compile:cjs && npm run compile:esm",
+    "compile:cjs": "tsc -p tsconfig.json --target es5 --module commonjs --outDir src/cjs/ && npm run copy-src-to-dist",
+    "compile:esm": "tsc -p tsconfig.json --target ES2015 --module ESNext --outdir src/esm/ --moduleResolution node",
+    "webpack": "npm run webpack:dev && npm run webpack:prod",
+    "webpack:dev": "npx webpack --env=development --config webpack.config.js",
+    "webpack:prod": "npx webpack --env=production --config webpack.config.js",
+    "copy-src-to-dist": "cp dist/uistats-typescript-main.js dist/uistats.js && cp dist/uistats-typescript-main.js.map dist/uistats.js.map && cp dist/uistats-typescript-main.min.js dist/uistats.min.js && cp dist/uistats-typescript-main.min.js.map dist/uistats.min.js.map",
+    "copy-src-to-dist-dev": "",
+    "__rollup": "rollup --config rollup.config.js",
+    "__build": "npm run compile-typescript && npm run rollup && npm run webpack",
+    "__build-dev": "npm run compile-typescript && npm run rollup",
+    "__compile-typescript": "tsc",
+    "__test": "",
+    "__watch": "rollup -cw",
+    "__start": "npm run watch & serve",
+    "__webpack": "npx webpack --mode production --config ./webpack5-config.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +45,7 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.1.3",
+    "typescript": "^5.9.3",
     "webpack": "^5.9.0",
     "webpack-cli": "^4.2.0"
   }

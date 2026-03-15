@@ -12,11 +12,11 @@
  * Observable keys are simple types: strings, numbers or booleans.
  * Arrays or objects cannot be observed by this tool.
  */
-declare type ObservableType = string | number | boolean;
+type ObservableType = string | number | boolean;
 /**
  * The evaluator modifies the current values to final display values.
  */
-declare type Evaluator = (value: ObservableType) => ObservableType;
+type Evaluator = (value: ObservableType) => ObservableType;
 /**
  * The main class.
  *
@@ -35,7 +35,7 @@ declare class UIStats {
             uiStats: UIStats;
             keyName: string;
             evaluateFn: Evaluator;
-            __installAsNewParent(evaluateFn: Evaluator): any;
+            __installAsNewParent(evaluateFn: Evaluator): /*elided*/ any;
             precision: (precision: number) => any;
             suffix: (suffixText: string) => any;
             prefix: (prefixText: string) => any;
@@ -48,7 +48,7 @@ declare class UIStats {
         uiStats: UIStats;
         keyName: string;
         evaluateFn: Evaluator;
-        __installAsNewParent(evaluateFn: Evaluator): any;
+        __installAsNewParent(evaluateFn: Evaluator): /*elided*/ any;
         precision: (precision: number) => any;
         suffix: (suffixText: string) => any;
         prefix: (prefixText: string) => any;

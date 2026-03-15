@@ -17,3 +17,5 @@ test/js/bundle.js
 resources/
 *.*~
 _dist/
+package-lock.json
+
