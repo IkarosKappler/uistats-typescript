@@ -14,14 +14,7 @@
     "webpack:prod": "npx webpack --env=production --config webpack.config.js",
     "copy-src-to-dist": "cp dist/uistats-typescript-main.js dist/uistats.js && cp dist/uistats-typescript-main.js.map dist/uistats.js.map && cp dist/uistats-typescript-main.min.js dist/uistats.min.js && cp dist/uistats-typescript-main.min.js.map dist/uistats.min.js.map",
     "copy-src-to-dist-dev": "",
-    "__rollup": "rollup --config rollup.config.js",
-    "__build": "npm run compile-typescript && npm run rollup && npm run webpack",
-    "__build-dev": "npm run compile-typescript && npm run rollup",
-    "__compile-typescript": "tsc",
-    "__test": "",
-    "__watch": "rollup -cw",
-    "__start": "npm run watch & serve",
-    "__webpack": "npx webpack --mode production --config ./webpack5-config.js"
+    "server": "npx http-server"
   },
   "repository": {
     "type": "git",

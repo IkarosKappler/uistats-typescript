@@ -261,7 +261,7 @@ var __webpack_exports__ = {};
 
 
 // Export the library to the global scope:
-globalThis.UIStats = (__webpack_require__(/*! ./UIStats */ "./src/cjs/UIStats.js").UIStats);
+globalThis.UIStats = __webpack_require__(/*! ./UIStats */ "./src/cjs/UIStats.js");
 
 })();
 
