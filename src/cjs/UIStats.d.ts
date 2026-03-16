@@ -5,8 +5,9 @@
  *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy
  *
- * @author Ikaros Kappler
- * @date   2020-12-20
+ * @author   Ikaros Kappler
+ * @date     2020-12-20
+ * @modified 2026-03-16 Chaning export from `export default UIStats` to `export const UIStats`.
  */
 /**
  * Observable keys are simple types: strings, numbers or booleans.
@@ -22,7 +23,7 @@ type Evaluator = (value: ObservableType) => ObservableType;
  *
  * Once instantiated it will append a new HTMLDivElement node to the DOM.
  */
-declare class UIStats {
+export declare class UIStats {
     private keyProps;
     private keyCount;
     private observee;
@@ -36,25 +37,25 @@ declare class UIStats {
             keyName: string;
             evaluateFn: Evaluator;
             __installAsNewParent(evaluateFn: Evaluator): /*elided*/ any;
-            precision: (precision: number) => any;
-            suffix: (suffixText: string) => any;
-            prefix: (prefixText: string) => any;
+            precision: (precision: number) => /*elided*/ any;
+            suffix: (suffixText: string) => /*elided*/ any;
+            prefix: (prefixText: string) => /*elided*/ any;
         };
     };
     constructor(observee: object);
-    __applyKeyValue(keyName: string, kProps: any, value: any): void;
-    __updateChildElem(keyName: any, newElem: any): void;
+    private __applyKeyValue;
+    private __updateChildElem;
     add(keyName: string): {
         uiStats: UIStats;
         keyName: string;
         evaluateFn: Evaluator;
         __installAsNewParent(evaluateFn: Evaluator): /*elided*/ any;
-        precision: (precision: number) => any;
-        suffix: (suffixText: string) => any;
-        prefix: (prefixText: string) => any;
+        precision: (precision: number) => /*elided*/ any;
+        suffix: (suffixText: string) => /*elided*/ any;
+        prefix: (prefixText: string) => /*elided*/ any;
     };
     __toggleVisibility(): void;
     __applyTextLayout(textNode: HTMLDivElement): void;
     __applyBaseLayout(): void;
 }
-export default UIStats;
+export {};
